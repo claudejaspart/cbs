@@ -48,3 +48,28 @@
 ```
   sudo -l
 ```
+
+### Remote copy / download
+
+* Download a file in a given directory
+```
+  wget -P targetdir url
+```
+
+* Resume download
+```
+  wget -c url
+```
+
+* Secure copy
+```
+  scp filename user@remote_host:/targetpath/
+```
+
+
+
+
+
+
+
+
