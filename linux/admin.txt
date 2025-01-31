@@ -1,3 +1,4 @@
 -- ADMIN --
 List of available sudo commands : sudo -l
+Become root : sudo su -
 -- EOF --

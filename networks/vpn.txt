@@ -1,0 +1,13 @@
+-- VPN --
+* Virtual Private Network
+* Allows for devices on separate networks to securely communicate on a dedicated path.
+* Devices connected within this tunnel form their own network.
+* VPN offers confidentiality.
+* VPN offers anonymity.
+* VPN technologies :
+  * PPPT : Point to Point Tunneling Protocol, allows the data from PPP to travel and leave a network. 
+           Easy to set up, supported by most devices, weakly encrypted.
+  * PPP  : Allow for authentication and encryption using a private key and a public certificate.
+  * IPSec: Internet Protocol Security encrypts data using the IP framework.
+           Hard to setup, but strong encryption. 
+-- EOF --

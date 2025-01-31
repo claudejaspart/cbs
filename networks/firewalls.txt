@@ -1,0 +1,12 @@
+-- FIREWALLS --
+* Device within a network.
+* Operate between layer 3 (Network) and 4 (Transport).
+* Determines what traffic is allowed to enter or exit :
+  * source
+  * destination
+  * port
+  * protocol
+* Firewall categories :
+  * Stateful : inspects entire information from a connection
+  * Stateless : inspects individual packets, pros : less resources and large traffic, cons : dumber
+-- EOF --

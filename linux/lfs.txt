@@ -1,0 +1,32 @@
+-- LINUX FROM SCRATCH --
+
+# Prepare host (chapter 1 and 2)
+
+01. Boot a live USB
+02. Run the prereqs script
+03. Delete disk
+04. Create a boot partition of 250 megs (onp1 +250M)
+05. Create a swap partition of 1 gigs (np2 +1G t l 82
+06. Create a final partition (np3 enter)
+07. Format root / ext4 fs : mkfs -v -t ext4 /dev/sda1
+08. Do the same with the final partition
+09. Format swap : mkswap /dev/sda2
+10. Set the mount LFS variable : export LFS=/mnt/lfs
+11. mkdir -pv $LFS
+12. mount -v -t ext4 /dev/sda3 $LFS   
+13. enable swap : /sbin/swapon -v /dev/sda2
+
+# Fetch packages (chapter 3)
+
+14. mkdir -v $LFS/sources
+15. Make dir writable and sticky : chmod -v a+wt $LFS/sources
+16. cd $LFS/sources
+17. wget wget-list-sysv
+18. wget md5sums
+19. wget --input-file=wget-list-sysv --continue --directory-prefix=$LFS/sources
+20. Check the signatures :
+	pushd $LFS/sources
+	  md5sum -c md5sums
+	popd
+
+-- EOF --

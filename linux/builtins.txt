@@ -1,0 +1,10 @@
+-- SHELL BUITINS --
+
+# Directories rotation
+
+pushd, popd and dirs allow to manipulate a stack of dirs
+Add dir1 to stack : pushd dir1
+Add dir2 w/o leaving dir1 : pushd -n dir2
+Display stack : dirs
+Rotate a dir to the top : pushd +2
+Restore previous value of the current dir saved by pushd : popd

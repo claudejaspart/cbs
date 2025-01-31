@@ -1,2 +1,8 @@
 -- FILESYSTEM --
+Display fixed disks : fdisk -l
+Manage a disk (mnop : fdisk /dev/sda
+Wipe all (-a) filesystems with dry run (-n) : wipefs -an /dev/sda
+Report free disk space : df -h
+Show dirs in a tree with 1 level depth : tree / -L 1
+Show active swap partitions : swapon
 -- EOF --
