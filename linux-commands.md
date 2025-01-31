@@ -66,7 +66,13 @@
   scp filename user@remote_host:/targetpath/
 ```
 
+### Command syntax
 
+
+* Execute command2 if command1 is successful
+'''
+  command1 && command2
+'''
 
 
 
