@@ -66,13 +66,44 @@
   scp filename user@remote_host:/targetpath/
 ```
 
-### Command syntax
+### Networking
+
+* Show ip address
+```
+  ip addr show
+```
+
+
+### Redirections
+
+* Redirect all 
+```
+  &>
+```
+
+* Redirect errors to black hole
+```
+  2&> /dev/null
+```
+
+* Output of command 1 as input of command 2
+```
+ cmd1 | xargs cmd2
+```
+
+### Misc 
 
 
 * Execute command2 if command1 is successful
 ```
   command1 && command2
 ```
+
+# System date
+```
+  date
+```
+
 
 
 
