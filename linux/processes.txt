@@ -1,0 +1,10 @@
+-- PROCESSES --
+View user processes : ps
+View all processes : ps -aux
+Force kill a process (possible zombies) : kill -9 pid
+Gracefully kill a process : kill -15 pid
+Run a job in the background : command &
+Put job in the foreground : 
+Pause a job :
+Display all jobs :
+-- EOF -- 

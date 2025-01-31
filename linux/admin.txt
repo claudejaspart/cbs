@@ -1,0 +1,3 @@
+-- ADMIN --
+List of available sudo commands : sudo -l
+-- EOF --

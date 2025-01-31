@@ -1,0 +1,4 @@
+-- SSH --
+Generate ssh key : ssh-keygen -t rsa -b 4096 -C "email"
+Connect to ssh : ssh user@ip [-p port]
+-- EOF --
