@@ -1,0 +1,7 @@
+-- NETWORKING TOOLS --
+
+Map the servers path taken by a request to a target machine : traceroute url
+Queries who a domain name is registered to : whois domain-name
+Manually query recursive DNS servers about domains : dig domain-name @dns-server-ip 
+
+-- EOF __

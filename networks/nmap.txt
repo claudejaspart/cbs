@@ -1,0 +1,150 @@
+-- NMAP --
+
+NMAP is a port scanner that has a script engine and can run exploits directly.
+Website : nmap.org
+Nmap info : man nmap / nmap -h
+
+
+# Useful flags
+
+UDP Top n ports : nmap --top-ports n ip
+Detect OS : nmap -O ip
+Detect services versions : nmap -sV ip
+Increase verbosity : -v -vv
+Save output : 
+  * 3 major formats : -oA
+  * Normal format : -oN
+  * Greppable format : -oG
+Aggressive mode (service & OS detection, traceroute, common script scanning) (Very loud) : nmap -A ip
+Increase speed the scans can run (5 levels) : nmap -T5 -sT ip
+Scan a port range : nmap -sT -p 1000-1500 ip
+Scan all ports : nmap -sT -p- ip
+
+
+# TCP scans (-sT)
+
+A closed port will respond with a RST flag. An open port will respond with SYN/ACK flag. NMAP
+will complete the handshake with a ACK flag.
+
+Many firewalls will **drop** incoming packets : indication that the port is being protected by a
+firewall.
+
+Configure a firewall to respond to tcp-packets to make it extremely difficult to get an accurate
+reading of the target : 
+
+        iptables -I INPUT -p tcp --dport <port> -j REJECT --reject-with tcp-reset
+
+
+# SYN scans (-sS)
+
+NMAP sends a RST flag instead of ACK, preventing the server from repeating the request.
+AKA half-open scan or stealth scan.
+
+Pros :
+
+- usually not logged
+- much faster than TCP scans
+
+Cons:
+
+- requires sudo permissions to work correctly in Linux (defaults to TCP scan)
+- unstable services are sometimes brought down by SYN scans
+
+
+# UDP scans (-sU)
+
+When a packet is sent to an open UDP port, there should be no response : NMAP refers to open | filtered.
+If the UDP port is open, NMAP will send 2 requests, just to be sure.
+If the UDP port is closed, the target will respond with an **ICMP** packet.
+UDP is very slow so scan the top ports : nmap -sU --top-ports 20 <target>
+NMAP will then send a protocol specific payload instead of an empty one.
+
+
+# NULL scans (-sN)
+
+Send a TCP request with no flags set at all. The response of a closed port should be a RST.
+No response if port is open or blocked by a firewall.
+
+
+# FIN scans (-sF)
+
+Send a TCP request with a FIN flag (gracefully finish the connection). The response of a closed port 
+should be RST.
+No response if port is open or blocked by a firewall.
+
+
+# Xmas scans (-sX)
+
+Sends a malformed TCP packet (PSH, URG and FIN flags) and expects a RST response for closed ports.
+No response if port is open or blocked by a firewall.
+
+
+# Firewall evasion
+
+Many firewalls are configured to drop incoming TCP packets to blocked ports which have the SYN flag set 
+(thus blocking new connection initiation requests). By sending requests which do not contain the SYN 
+flag, we effectively bypass this kind of firewall. Whilst this is good in theory, most modern IDS 
+solutions are savvy to these scan types, so don't rely on them to be 100% effective when dealing with 
+modern systems.
+
+Techniques:
+  * Stealth scan (RST not ACK)
+  * NULL, FIN, XMAS scans
+  * -Pn option (no ping before scanning, useful if the firewall is blocking ICMP packet)
+  * -f : fragment packets into undetectable packets
+  * —mtu <number> : number is a multiple of 8, alternative to -f
+  * —scan-delay <time>ms : add a delay between packets sent
+  * —badsum : generate invalid checksum for packets (packet should be dropped, any response is a firewall)
+  * —data-length : append random data to the end of packets
+
+
+# Scan all networks machines
+
+Ping sweep : 
+  * nmap -sn 192.168.0.1-254
+  * nmap -sn 192.168.0.0/24
+
+Use Arp sweep if pings are disabled, and if inside the local network.
+
+
+# NMAP Script Engine (NSE)
+
+Introduction
+
+  * NSE scripts are written in LUA langage.
+  * Scan for vulns
+  * Automation of exploits
+  * Reconnaissance
+
+Categories
+
+  * safe : wont affect the target
+  * intrusive : not safe
+  * vuln : scan for vulns
+  * exploit : attempt to exploit a vuln
+  * auth : attempt to bypass auth for running services
+  * brute : attempt to bruteforce creds for running services
+  * discovery : attempt to query running services
+
+Script help :
+
+  * nmap --script-help <script-name>
+
+Example : 
+nmap -p 80 --script=http-put --script-args http-put.url='/dav/shell.php',http-put.file='./shell.php'
+
+Run multiple scripts using comma separator : --script=smb-enum-users,smb-enum-shares
+
+Finding scripts
+
+  * NMAP website
+  * /usr/share/nmap/scripts
+  * cat grepping /usr/share/nmap/scripts/script.db (not an actual db binary, just text)
+
+Update the missing scripts : 
+
+  * sudo apt update && sudo apt install nmap
+    OR
+  * sudo wget -O /usr/share/nmap/scripts/<script-name>.nse https://svn.nmap.org/nmap/scripts/<script-name>.nse && nmap --script-updatedb
+
+-- EOF --
