@@ -1,0 +1,48 @@
+-- DNS --
+
+* Domain Name System
+
+* Domain hierarchy :
+  * Root Domain (.)
+    * Top-Level Domain (.com, .fr, ...)
+      * Second Level Domain (any site .com, any site .fr ...)
+        * Subdomain
+
+* 2 types of TLD :
+  * Generic Top Level (gTLD)
+  * Country Code Top Level (ccTLD)
+* Over 2000 TLDs
+
+* Second-level domain limited to 63 chars
+* Only a-z 0-9 and hyphens. Connot start/end with an hyphen, no consecutive hyphens.
+
+* Subdomain separated on the left with a period. Ex : admin.tryhackme.com
+* Subdomain name has the same restrictions as the the second-level domain name.
+* Can concat multiple subdomains but total length must not exceed 253 chars.
+* No limit to the number of subdomains.
+
+* DNS not just for websites. Multiples types of DNS exists :
+  * A Record : resolve to IPv4 addresses
+  * AAAA Record  : resolve to IPv6 addresses
+  * CNAME Record : resolve to another domain name. Ex : store.tryhackme.com returns a CNAME record 
+                   shops.shopify.com
+  * MX Record    : resolve to the address of the servers that handle the emails. These records come a 
+                   priority flag to indicate in which order to try the servers. 
+  * TXT Record   : free text fields that can have multiple uses, but some common ones can be to list
+                   servers that have authority to send email on behalf of the domain. Also used to
+                   verify the ownership of the domain name when signing up for third party services.
+
+* What happens when you make a DNS request (each step if not found) :
+  * Computer checks first the hosts file
+  * Computer then checks the local cache
+  * Computer sends a request to the Recursive DNS Server provided by the ISP
+  * Computer sends a request to the root server, then forwards to TLD server, then to an authoritative server
+
+* DNS records come with a TTL (Time To Live) value in seconds, and is saved locally in the cache.
+
+* Location of the hosts file :
+  * Windows : C:\Windows\System32\Drivers\etc\hosts
+  * Mac     : /private/etc/hosts (go to finder > go > go to finder)
+  * Linux   : /etc/hosts
+
+-- EOF --
